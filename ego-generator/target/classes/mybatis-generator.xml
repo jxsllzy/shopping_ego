@@ -73,7 +73,7 @@
 		 -->
 		<table tableName="t_goods_category" domainObjectName="GoodsCategory"
 		       enableCountByExample="true" enableDeleteByExample="true"
-		       enableSelectByExample="true" enableUpdateByExample="true">
+			enableSelectByExample="true" enableUpdateByExample="true">
 			<!-- 用于insert时，返回主键的编号 -->
 			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
 		</table>

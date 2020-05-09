@@ -3,16 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>ego-parent</artifactId>
+        <groupId>com.ego</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
 
     <groupId>com.ego</groupId>
     <artifactId>ego-search</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    <parent>
-        <groupId>com.ego</groupId>
-        <artifactId>ego-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,6 +21,7 @@
     </properties>
 
     <dependencies>
+        <!-- ego config 依赖 -->
         <dependency>
             <groupId>com.ego</groupId>
             <artifactId>ego-rpc</artifactId>
@@ -32,17 +33,25 @@
             <artifactId>ego-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- pagehelper 分页依赖 -->
+        <!-- spring boot web 依赖 -->
         <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-
         <!-- spring boot freemarker 依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <!-- mybatis 依赖 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- pagehelper 分页依赖 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
         <!-- mysql 数据库依赖 -->
         <dependency>
@@ -53,6 +62,26 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
+        </dependency>
+        <!-- spring data redis 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- commons-pool2 对象池依赖 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <!--dubbo 依赖-->
+        <dependency>
+            <groupId>com.alibaba.spring.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- zkClient 依赖 -->
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
         </dependency>
         <!-- spring boot test 依赖 -->
         <dependency>
@@ -66,40 +95,22 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- spring data redis 依赖 -->
+        <dependency>
+            <groupId>com.ego</groupId>
+            <artifactId>ego-sso</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- 腾讯云依赖 -->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java</artifactId>
+        </dependency>
+        <!-- amqp组件 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
-
-        <!-- elasticsearch 服务依赖 -->
-        <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
-        </dependency>
-        <!-- rest-client 客户端依赖 -->
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-client</artifactId>
-        </dependency>
-        <!-- rest-high-level-client 客户端依赖 -->
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-high-level-client</artifactId>
-        </dependency>
-
-        <!--dubbo 依赖-->
-        <dependency>
-            <groupId>com.alibaba.spring.boot</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-        </dependency>
-        <!-- zkClient 依赖 -->
-        <dependency>
-            <groupId>com.101tec</groupId>
-            <artifactId>zkclient</artifactId>
-        </dependency>
-
     </dependencies>
-
 
 </project>
