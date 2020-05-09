@@ -9,79 +9,6 @@
     <!-- 引入 doT.js -->
     <script type="text/javascript" src="${ctx}/js/doT.min.js"></script>
     <script src="${ctx}/js/layer/layer-min.js"></script>
-
-    <script type="text/javascript">
-        // 页面加载完成后执行
-        $(function () {
-            var searchStr = $("input[name='search']").val();
-            if(searchStr!=null&&searchStr.trim()!=''){
-                doSearch(searchStr);
-            }
-
-
-        });
-
-        // 搜索商品
-        function doSearch(searchStr) {
-            $.ajax({
-                url: "${ctx}/search/searchGoods",
-                type: "POST",
-                data: {"searchStr":searchStr},
-                dataType: "JSON",
-                success: function (result) {
-                    // console.log(result);
-                    // 调用模板
-                    var templ = doT.template($("#goodsTemplate").text());
-                    // 填充内容
-                    $("#s_search_content").html(templ(result.result));
-                    // 调用模板
-                    var page = doT.template($("#pageTemplate").text());
-                    // 填充内容
-                    $("#s_search_page").html(page(result));
-                },
-                error: function (result) {
-                    alert("系统正在升级中，请稍后再试！");
-                }
-            });
-        }
-
-        // 上一页
-        function prePage() {
-            // 获取当前页的值 减一 然后重新赋值给当前页
-            var page = parseInt($("#pageNum").val()) - 1;
-            $("#pageNum").val(page);
-            // 调用搜索函数
-            doSearch();
-        }
-
-        // 下一页
-        function nextPage() {
-            // 获取当前页的值 加一 然后重新赋值给当前页
-            var page = parseInt($("#pageNum").val()) + 1;
-            $("#pageNum").val(page);
-            // 调用搜索函数
-            doSearch();
-        }
-
-        // 第几页
-        function numPage(num) {
-            // 获取点击的按钮值 然后重新赋值给当前页
-            $("#pageNum").val(num);
-            // 调用搜索函数
-            doSearch();
-        }
-
-        // 到第几页
-        function numPageBtn() {
-            // 获取输入的页码值 然后重新赋值给当前页
-            $("#pageNum").val($("#num").val());
-            // 调用搜索函数
-            doSearch();
-        }
-
-
-    </script>
-
 </head>
 <body>
 <header>
@@ -89,7 +16,7 @@
     <div class="home_icon">
         <a href="${ctx}/index.html" style="text-decoration: none;color: white">C2C</a>
     </div>
-    <input type="text" placeholder="Search" name="search" class="nav_search_input" value="${searchStr}">
+    <input type="text" placeholder="Search" name="search" class="nav_search_input" value="${searchStr!}">
     <span class="search_icon"></span>
     <span class="user_icon"></span>
     <span class="login_or_register_string">
@@ -182,36 +109,36 @@
 </div>
 
 <!-- 编写商品模板 -->
-<script type="template" id="goodsTemplate">
+<script type="template" id="shopInfoTemplate">
     {{ for(var i = 0; i < it.length; i++){ }}
         <div class="detail_product">
             <img src="{{=it[i].image}}" height="196px">
+            <p class="show_tip">{{=it[i].remark}}</p>
             <span class="detail_product_name">{{=it[i].name}}</span><br>
             <span class="detail_product_cost">{{=it[i].price}}</span><br>
-            <span class="detail_buy product_{{=it[i].id}}">加入购物车</span>
+            <span class="detail_buy product_{{=it[i].id}}" onclick="addOrder({{=it[i].id}})">加入购物车</span>
         </div>
     {{ } }}
 </script>
 
 <!-- 编写分页模板 -->
 <script type="template" id="pageTemplate">
-    {{ if(it.hasPreviousPage){ }}
-    <a class="pagination_lt" href="javascript:ajax_get_table('{{=it.prePage}}');" style="text-decoration: none"><</a>
+    {{ if(it.hasPre){ }}
+    <a class="pagination_lt" href="javascript:doSearch('{{=it.prePage}}');" style="text-decoration: none"><</a>
     {{ } }}
 
-        {{ for(var i = 1; i <= it.navigatepageNums.length; i++){ }}
+        {{ for(var i = 1; i <= it.pageSize; i++){ }}
         <ul>
-        <li
-                {{ if(i == it.pageNum){ }}
+            <li
+                {{ if(i == it.currentPage){ }}
                 class="current_page"
                 {{ } }}>
-            <a href="javascript:ajax_get_table('{{=i}}');" style="text-decoration: none">{{=i}}</a>
-        </li>
+                <a href="javascript:doSearch('{{=i}}');" style="text-decoration: none">{{=i}}</a>
+            </li>
         </ul>
         {{ } }}
-
-    {{ if(it.hasNextPage){ }}
-    <a class="pagination_gt" href="javascript:ajax_get_table('{{=it.nextPage}}');" style="text-decoration: none">></a>
+    {{ if(it.hasNext){ }}
+    <a class="pagination_gt" href="javascript:doSearch('{{=it.nextPage}}');" style="text-decoration: none">></a>
     {{ } }}
 </script>
 
@@ -243,67 +170,99 @@
     {{ } }}
 </script>
 
-<script>
+<script type="text/javascript">
 
-    $(document).ready(function () {
-        // ajax 加载商品列表
-        ajax_get_table(1);
+    $(document).ready(function (){
+        doSearch(1);
+
+        //获取商品分类
+        selectKindsList();
+
     });
 
-    $('.search_icon').click(function () {
-        var name = $('.nav_search_input').val();
-        window.location.href = '${ctx}/findShopByName?name=' + name;
-    });
 
+    function addOrder(id) {
+        $('.detail_buy').click(function () {
+            $.ajax({
+                url:'${ctx}/order/insertGoodsCar',
+                dataType:'JSON',
+                type:'post',
+                data:{id:id},
+                success:function (data) {
+                    if (200 == data.code){
+                        alert("加入购物车成功");
+                    } else {
+                        alert("加入购物车失败");
+                    }
+                }
+            })
+        });
+    }
 
-    //ajax 抓取页面 page 为当前第几页
-    function ajax_get_table(page) {
+    function selectKindsList() {
         $.ajax({
-            url: "${ctx}/shopInformation/list",
+            url: "${ctx}/searck/kinds",
+            type: "GET",
+            dataType: "JSON",
+            success: function (result) {
+                var result = JSON.parse(result);
+                if (result.length > 0) {
+                    // 调用模板
+                    var templ = doT.template($("#goodsKindsTemplate").text());
+                    // 填充内容
+                    $(".my_type_div").html(templ(result));
+                    /* ----------鼠标移入移出事件---begin------- */
+                    $('.cat_item').mousemove(function () {
+                        $(this).addClass('cat_item_on');
+                    });
+                    $('.cat_item').mouseleave(function () {
+                        $(this).removeClass('cat_item_on');
+                    });
+                    /* ----------鼠标移入移出事件-----end------- */
+                } else {
+                    layer.msg("亲，系统正在升级中，请稍后再试！");
+                }
+            },
+            error: function (result) {
+                console.log(result);
+                layer.msg("亲，系统正在升级中，请稍后再试！");
+            }
+        });
+    }
+
+
+    // 搜索商品
+    function doSearch(page) {
+        var searchStr = $("input[name='search']").val();
+        if(searchStr==null||searchStr.trim()=='') {
+            self.location.href="${ctx}/";
+        }
+        $.ajax({
+            url: "${ctx}/search/searchShopByName",
             type: "POST",
             data: {
-                name: $(".nav_search_input").val(),
+                "searchStr":searchStr,
                 pageNum: page,
                 pageSize: 6
             },
             dataType: "JSON",
             success: function (result) {
                 var result = JSON.parse(result);
-                if (200 == result.code) {
-
-                    if (result.pageInfo.list.length > 0) {
-                        //获取商品列表模板
-                        var goodsTemp = doT.template($("#shopInfoTemplate").text());
-                        //填充数据
-                        $("#content").html(goodsTemp(result.pageInfo.list));
-
-                        //获取分页模板
-                        var pageTemp = doT.template($("#pageTemplate").text());
-                        //填充数据
-                        $(".pagination_div").html(pageTemp(result.pageInfo));
-
-                    } else {
-                        layer.msg("该分类或品牌暂无商品信息！");
-                    }
-                } else {
-                    layer.msg("该分类或品牌暂无商品信息！");
-                }
+                //获取商品列表模板
+                var goodsTemp = doT.template($("#shopInfoTemplate").text());
+                console.log(result);
+                //填充数据
+                $("#content").html(goodsTemp(result.result));
+                //获取分页模板
+                var pageTemp = doT.template($("#pageTemplate").text());
+                //填充数据
+                $(".pagination_div").html(pageTemp(result));
             },
             error: function (result) {
-                console.log(result)
+                alert("系统正在升级中，请稍后再试！");
             }
         });
     }
-
-/*function getpageInfo(pageInfo) {
-    $(".pagination_div").html("");
-    var str='<a class="pagination_lt" href="javascript:ajax_get_table('+pageInfo.pageNum+');" style="text-decoration: none"><</a>';
-        for(var i = 1; i <= pageInfo.pages; i++){
-            str+='<ul><li><a href="javascript:ajax_get_table('+i+');" style="text-decoration: none">'+i+'</a></li></ul>'
-        }
-        str +='<a class="pagination_gt" href="javascript:ajax_get_table('+pageInfo.pageNum+');" style="text-decoration: none">></a>';
-    $(".pagination_div").html(str);
-}*/
 
 </script>
 

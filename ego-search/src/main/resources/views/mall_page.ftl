@@ -9,7 +9,6 @@
     <!-- 引入 doT.js -->
     <script type="text/javascript" src="${ctx}/js/doT.min.js"></script>
     <script src="${ctx}/js/layer/layer-min.js"></script>
-
 </head>
 <body>
 <header>
