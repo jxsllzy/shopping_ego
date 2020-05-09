@@ -80,3 +80,5 @@ ego-manager/ego-manager.iml
 ego-order/ego-order.iml
 ego-parent.iml
 ego-portal/ego-portal.iml
+ego-rpc/ego-rpc.iml
+ego-sso/ego-sso.iml
