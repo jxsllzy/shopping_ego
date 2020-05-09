@@ -76,5 +76,6 @@ fabric.properties
 /ego-order/target/
 /ego-order/ego-order.iml
 /ego-rpc/ego-rpc.iml
-/ego-parent.iml
 /ego-sso/ego-sso.iml
+/ego-parent.iml
+
