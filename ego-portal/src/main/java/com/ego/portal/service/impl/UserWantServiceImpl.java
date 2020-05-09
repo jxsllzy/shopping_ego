@@ -1,5 +1,8 @@
 package com.ego.portal.service.impl;
 
+import com.ego.common.result.BaseResult;
+import com.ego.portal.pojo.UserWant;
+import com.ego.portal.pojo.UserWantExample;
 import com.ego.portal.service.UserWantService;
 import org.springframework.stereotype.Service;
 
@@ -12,4 +15,19 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class UserWantServiceImpl implements UserWantService {
+
+    @Override
+    public BaseResult select(UserWantExample userWantExample, Integer pageNum, Integer pageSize) {
+        return null;
+    }
+
+    @Override
+    public BaseResult update(UserWant userWant) {
+        return null;
+    }
+
+    @Override
+    public BaseResult delete(Integer id) {
+        return null;
+    }
 }
