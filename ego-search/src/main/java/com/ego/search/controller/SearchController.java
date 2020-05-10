@@ -43,8 +43,8 @@ public class SearchController {
     @RequestMapping("search/searchShopByName")
     @ResponseBody
     public EgoPageInfo findShopByName(Model model ,@RequestParam("searchStr") String name,
-                                 @RequestParam(defaultValue = "1") Integer pageNum,
-                                 @RequestParam(defaultValue = "6") Integer pageSize){
+                                      @RequestParam(defaultValue = "1") Integer pageNum,
+                                      @RequestParam(defaultValue = "6") Integer pageSize){
         BaseResult baseResult = new BaseResult();
         EgoPageInfo<GoodsVo> egoPageInfo = goodsService.doSearch(name, pageNum, pageSize);
         return egoPageInfo;
