@@ -79,9 +79,8 @@ public class GoodsServiceImpl implements GoodsService {
                 Integer goodsId = (Integer) hit.getSourceAsMap().get("goodsId");
                 String goodsName = (String) hit.getSourceAsMap().get("goodsName");
                 String goodsMsg = (String) hit.getSourceAsMap().get("goodsMsg");
-                String imageUrl = (String) hit.getSourceAsMap().get("imagrUrl");
+                String imageUrl = (String) hit.getSourceAsMap().get("imageUrl");
                 BigDecimal goodsPrice = new BigDecimal(String.valueOf(hit.getSourceAsMap().get("goodsPrice")));
-                imageUrl = "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1589033473&di=dd3c2b81d2cd757aa8adbf0945734f2f&src=http://a2.att.hudong.com/36/48/19300001357258133412489354717.jpg";
                 GoodsVo goodsVo = new GoodsVo(goodsId,goodsName,goodsMsg,goodsPrice,imageUrl);
                 list.add(goodsVo);
             }

@@ -64,19 +64,21 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
-/ego-common/ego-common.iml
-/ego-common/target/
-/ego-generator/target/
-/ego-generator/ego-generator.iml
-/ego-manager/target/
-/ego-portal/ego-portal.iml
-/ego-portal/target/
-/ego-portal/src/main/resources/config/application-dev.yml
-/.idea/
-/ego-order/target/
-/ego-order/ego-order.iml
-/ego-rpc/ego-rpc.iml
-/ego-parent.iml
-/ego-sso/ego-sso.iml
-
-
+.idea/$PRODUCT_WORKSPACE_FILE$
+.idea/$PROJECT_FILE$
+.idea/.name
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/qaplug_profiles.xml
+.idea/vcs.xml
+ego-common/ego-common.iml
+ego-generator/ego-generator.iml
+ego-manager/ego-manager.iml
+ego-order/ego-order.iml
+ego-parent.iml
+ego-portal/ego-portal.iml
+ego-rpc/ego-rpc.iml
+ego-sso/ego-sso.iml

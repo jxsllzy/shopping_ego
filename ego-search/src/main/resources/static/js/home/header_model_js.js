@@ -60,15 +60,14 @@ $(function () {
             dataType: "JSON",
             success: function (result) {
                 // console.log(result);
-                //获取商品列表模板
-                var goodsTemp = doT.template($("#shopInfoTemplate").text());
-                //填充数据
-                $("#content").html(goodsTemp(result.pageInfo.list));
-
-                //获取分页模板
-                var pageTemp = doT.template($("#pageTemplate").text());
-                //填充数据
-                $(".pagination_div").html(pageTemp(result.pageInfo));
+                // 调用模板
+                var templ = doT.template($("#goodsTemplate").text());
+                // 填充内容
+                $("#s_search_content").html(templ(result.result));
+                // 调用模板
+                var page = doT.template($("#pageTemplate").text());
+                // 填充内容
+                $("#s_search_page").html(page(result));
             },
             error: function (result) {
                 alert("系统正在升级中，请稍后再试！");
