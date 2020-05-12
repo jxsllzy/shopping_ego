@@ -1,4 +1,4 @@
-package com.ego.portal;
+package com.ego.rpc;
 
 import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
@@ -6,12 +6,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-//扫描mapper接口包
-@MapperScan("com.ego.portal.mapper")
-
+//dubbo开启
 @EnableDubboConfiguration
-public class PortalApplication {
+//扫描mybatis配置
+@MapperScan("com.ego.rpc.mapper")
+public class RpcApplication {
     public static void main(String[] args) {
-        SpringApplication.run(PortalApplication.class,args);
+        SpringApplication.run(RpcApplication.class,args);
     }
 }

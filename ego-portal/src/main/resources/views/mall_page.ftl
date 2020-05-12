@@ -5,7 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>商城</title>
-    <#include "head.ftl">
+    <script src="${ctx}/js/jquery-1.3.2.min.js"></script>
+    <script src="${ctx}/js/home/header_model_js.js"></script>
+    <script src="${ctx}/js/mall/type_list_obj.js"></script>
+    <script src="${ctx}/js/mall/left_nav_on_goods_page.js"></script>
+    <link rel="icon" href="${ctx}/img/page_icon.png">
+    <link href="${ctx}/css/home_page/header_and_nav.css" rel="stylesheet">
+    <link href="${ctx}/css/mall_page/mall_page_other.css" rel="stylesheet">
     <!-- 引入 doT.js -->
     <script type="text/javascript" src="${ctx}/js/doT.min.js"></script>
     <script src="${ctx}/js/layer/layer-min.js"></script>
@@ -14,7 +20,7 @@
 <header>
     <span class="short_nav"></span>
     <div class="home_icon">
-        <a href="${ctx}/index.html" style="text-decoration: none;color: white">C2C</a>
+        <a href="../index.html" style="text-decoration: none;color: white">C2C</a>
     </div>
     <input type="text" placeholder="Search" name="search" class="nav_search_input">
     <span class="search_icon"></span>
@@ -26,7 +32,7 @@
 </header>
 <div class="short_nav_show">
     <ul>
-        <li><a href="${ctx}index.html">首页</a></li>
+        <li><a href="../index.html">首页</a></li>
         <li><a href="javascript:void(0)">商城</a></li>
         <li><a href="publish_product.html">发布商品</a></li>
         <li><a href="require_product.html">求购商品</a></li>
@@ -112,7 +118,7 @@
 <script type="template" id="shopInfoTemplate">
     {{ for(var i = 0; i < it.length; i++){ }}
         <div class="detail_product">
-            <img src="{{=it[i].image}}" height="196px">
+            <img src="{{=it[i].image}}" height="196px" style="width: 186px;height: 196px"><br>
             <span class="detail_product_name">{{=it[i].name}}</span><br>
             <span class="detail_product_cost">{{=it[i].price}}</span><br>
             <span class="detail_buy product_{{=it[i].id}}">加入购物车</span>
@@ -176,13 +182,6 @@
         // ajax 加载商品列表
         ajax_get_table(1);
     });
-
-    $('.search_icon').click(function () {
-        var name = $('.nav_search_input').val();
-        window.location.href = '${ctx}/findShopByName?name=' + name;
-    });
-
-
     //ajax 抓取页面 page 为当前第几页
     function ajax_get_table(page) {
         $.ajax({
