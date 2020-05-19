@@ -8,6 +8,8 @@ import com.ego.portal.pojo.ShopInformationExample;
 import com.ego.portal.service.ShopInformationService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -22,11 +24,94 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class ShopInformationServiceImpl implements ShopInformationService {
 
-    @Resource
+    @Autowired
     private ShopInformationMapper shopInformationMapper;
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
 
-    @Resource
-    private RedisTemplate<String,String> redisTemplate;
+    @Value("${shopgoods.productInfo.list.key}")
+    private String shopGoodsRedisKey;
+
+    //首页-轮播图的商品展示-根据商品数量升序前5条数据
+    @Override
+    public List<ShopInformation> shop() {
+        //先从redis查询是否有数据
+        ValueOperations<String, Object> stringObjectClusterOperations = redisTemplate.opsForValue();
+        String gList = (String) stringObjectClusterOperations.get(shopGoodsRedisKey);
+        //如果有值，直接转成list返回，没有就去数据库查询
+        if(!StringUtils.isEmpty(gList)){
+            List<ShopInformation> gLists =JsonUtil.jsonToList(gList, ShopInformation.class);
+            //将查询结果设置至分页对象
+            return gLists;
+        }
+
+        //redis没有查询到，从数据库查询
+        List<ShopInformation> list = shopInformationMapper.select();
+        //将查询结果设置至分页对象
+        if (!CollectionUtils.isEmpty(list)){
+            //将数据库查到的数据转成json字符串存入redis
+            stringObjectClusterOperations.set(shopGoodsRedisKey, JsonUtil.object2JsonStr(list));
+            return list;
+        }
+
+        return null;
+    }
+
+
+    //精品商品分页查询
+    @Override
+    public BaseResult selectGoodsListByPage(Integer pageNum, Integer pageSize) {
+        //构建分页对象
+        PageHelper.startPage(pageNum,pageSize);
+        //redis
+        String[] goodsKeyArr = new String[]{
+                "shopgoods:productInfo:list:",
+                "pageNum_:" };
+        //如果分类id不为空
+        if (null != pageNum) {
+            //相当于pageNum_1:
+            goodsKeyArr[1] = "pageNum_" + pageNum + ":";
+        }
+        //循环把所有的key拼接好
+        StringBuilder sb = new StringBuilder();
+        for (String s : goodsKeyArr) {
+            sb.append(s);
+        }
+        String shopGoodsRedisKey = sb.toString();
+
+        //先从redis查询是否有数据
+        ValueOperations<String, Object> stringObjectClusterOperations = redisTemplate.opsForValue();
+        String gList = (String) stringObjectClusterOperations.get(shopGoodsRedisKey);
+        //如果有值，直接转成list返回，没有就去数据库查询
+        if(!StringUtils.isEmpty(gList)){
+            PageInfo pageInfo = JsonUtil.jsonStr2Object(gList, PageInfo.class);
+            //将查询结果设置至分页对象
+            return BaseResult.success(pageInfo);
+        }
+
+        //redis没有查询到，从数据库查询
+        List<ShopInformation> list = shopInformationMapper.selectByExample(new ShopInformationExample());
+
+        //将查询结果设置至分页对象
+        if (!CollectionUtils.isEmpty(list)){
+            PageInfo<ShopInformation> pageInfo = new PageInfo<>(list,5);
+            //将数据库查到的数据转成json字符串存入redis
+            stringObjectClusterOperations.set(shopGoodsRedisKey, JsonUtil.object2JsonStr(pageInfo));
+            return BaseResult.success(pageInfo);
+        }else {
+            //如果没有查到数据，将null放入redis,并设置失效时间1分钟
+            stringObjectClusterOperations.set(shopGoodsRedisKey, new PageInfo<>(new ArrayList<ShopInformation>()),60, TimeUnit.SECONDS);
+        }
+        return BaseResult.error();
+    }
+
+
+    //首页-精品的商品展示-根据商品数量升序第5到10条数据
+    @Override
+    public List<ShopInformation> shops() {
+
+        return shopInformationMapper.selectbySales();
+    }
 
     @Override
     public BaseResult queryShopInfoList(ShopInformation shopInformation, Integer pageNum, Integer pageSize) {
@@ -51,8 +136,8 @@ public class ShopInformationServiceImpl implements ShopInformationService {
          *      有数据：则返回数据
          *      无数据：则从数据库中查询
          */
-        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-        String shopInfosListStr = valueOperations.get(shopInfosKeysListStr);
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        String shopInfosListStr = (String) valueOperations.get(shopInfosKeysListStr);
         if(!com.alibaba.druid.util.StringUtils.isEmpty(shopInfosListStr)){
             PageInfo pageInfo = JsonUtil.jsonStr2Object(shopInfosListStr, PageInfo.class);
             return BaseResult.success(pageInfo);
@@ -75,4 +160,7 @@ public class ShopInformationServiceImpl implements ShopInformationService {
         }
 
     }
+
+
+
 }

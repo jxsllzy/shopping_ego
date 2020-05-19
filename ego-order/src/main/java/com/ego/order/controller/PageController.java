@@ -16,6 +16,7 @@ public class PageController {
 	 */
 	@RequestMapping("/{page}")
 	public String page(@PathVariable String page) {
+		System.out.println("你好");
 		return page;
 	}
 }

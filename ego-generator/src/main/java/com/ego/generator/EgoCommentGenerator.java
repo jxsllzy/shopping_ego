@@ -130,7 +130,7 @@ public class EgoCommentGenerator implements CommentGenerator {
 			return;
 		}
 		topLevelClass.addJavaDocLine("/**");
-		topLevelClass.addJavaDocLine(" * @author zhoubin ");
+		topLevelClass.addJavaDocLine(" * @author zhiyu ");
 		topLevelClass.addJavaDocLine(" * @create "+LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
 		topLevelClass.addJavaDocLine(" * @since 1.0.0");
 		topLevelClass.addJavaDocLine(" */");
@@ -151,7 +151,7 @@ public class EgoCommentGenerator implements CommentGenerator {
 		String remarks = introspectedTable.getRemarks();
 		innerClass.addJavaDocLine("/**");
 		innerClass.addJavaDocLine("/* "+remarks);
-		innerClass.addJavaDocLine(" * @author zhoubin ");
+		innerClass.addJavaDocLine(" * @author zhiyu ");
 		innerClass.addJavaDocLine(" * @create "+LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
 		innerClass.addJavaDocLine(" * @since 1.0.0");
 		innerClass.addJavaDocLine(" */");
@@ -170,7 +170,7 @@ public class EgoCommentGenerator implements CommentGenerator {
 		String remarks = introspectedTable.getRemarks();
 		innerClass.addJavaDocLine("/**");
 		innerClass.addJavaDocLine("/* "+remarks);
-		innerClass.addJavaDocLine(" * @author zhoubin ");
+		innerClass.addJavaDocLine(" * @author zhiyu ");
 		innerClass.addJavaDocLine(" * @create "+LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
 		innerClass.addJavaDocLine(" * @since 1.0.0");
 		innerClass.addJavaDocLine(" */");

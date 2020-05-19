@@ -2,7 +2,6 @@ package com.ego.portal.service;
 
 import com.ego.common.result.BaseResult;
 import com.ego.portal.pojo.UserWant;
-import com.ego.portal.pojo.UserWantExample;
 
 /**
  * 求购商品Service接口
@@ -17,12 +16,12 @@ public interface UserWantService {
 
     /**
      * 分页搜索--求购商品
-     * @param userWantExample
+     * @param userWant
      * @param pageNum
      * @param pageSize
      * @return
      */
-    BaseResult select(UserWantExample userWantExample, Integer pageNum, Integer pageSize);
+    BaseResult select(UserWant userWant, Integer pageNum, Integer pageSize);
 
 
     //更新

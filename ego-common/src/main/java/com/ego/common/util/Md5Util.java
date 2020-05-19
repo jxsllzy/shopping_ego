@@ -2,6 +2,7 @@ package com.ego.common.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 /**
  * @see(功能介绍) : 加密工具类
@@ -56,6 +57,16 @@ public class Md5Util {
             ex.printStackTrace();
         }
         return resultString;
+    }
+
+    public static String  encode(String msg){
+        try {
+            MessageDigest messageDigest=MessageDigest.getInstance("md5");
+            return Base64.getEncoder().encodeToString(messageDigest.digest(msg.getBytes())) ;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static void main(String[] args) {

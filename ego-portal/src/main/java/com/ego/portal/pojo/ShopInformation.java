@@ -5,11 +5,16 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author cl 
+ * @author cl
  * @create 2020-05-08
  * @since 1.0.0
  */
 public class ShopInformation implements Serializable {
+
+    /**
+     * 等级名称
+     */
+    private String kind;
     /**
      * 商品id
      */
@@ -76,14 +81,23 @@ public class ShopInformation implements Serializable {
     private String image;
 
     /**
-     * 
+     *
      */
     private String thumbnails;
+
 
     /**
      * shopinformation
      */
     private static final long serialVersionUID = 1L;
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 
     public Integer getId() {
         return id;

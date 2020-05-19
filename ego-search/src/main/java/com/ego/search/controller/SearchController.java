@@ -45,19 +45,9 @@ public class SearchController {
     public EgoPageInfo findShopByName(Model model ,@RequestParam("searchStr") String name,
                                       @RequestParam(defaultValue = "1") Integer pageNum,
                                       @RequestParam(defaultValue = "6") Integer pageSize){
-        BaseResult baseResult = new BaseResult();
         EgoPageInfo<GoodsVo> egoPageInfo = goodsService.doSearch(name, pageNum, pageSize);
         return egoPageInfo;
     }
 
-    /**
-     * 这个还没写
-     * @return
-     */
-    @RequestMapping("searck/kinds")
-    @ResponseBody
-    public List<GoodsVo> goodsCategoryList(){
-        return null;
-    }
 
 }

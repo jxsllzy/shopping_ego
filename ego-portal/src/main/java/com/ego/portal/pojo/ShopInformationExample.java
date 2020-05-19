@@ -76,7 +76,7 @@ public class ShopInformationExample {
 
     /**
     /* 
-     * @author cl 
+     * @author zhoubin 
      * @create 2020-05-08
      * @since 1.0.0
      */
@@ -1004,7 +1004,7 @@ public class ShopInformationExample {
 
     /**
     /* 
-     * @author cl 
+     * @author zhoubin 
      * @create 2020-05-08
      * @since 1.0.0
      */
@@ -1017,7 +1017,7 @@ public class ShopInformationExample {
 
     /**
     /* 
-     * @author cl 
+     * @author zhoubin 
      * @create 2020-05-08
      * @since 1.0.0
      */
