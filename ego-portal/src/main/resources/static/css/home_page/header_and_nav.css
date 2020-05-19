@@ -127,12 +127,13 @@ nav.my_nav {
     z-index: 20;
 }
 
+/*new*/
 nav.my_nav ul {
     color: slateblue;
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-left: 28%;
+    margin-left: 12%;
 }
 
 nav.my_nav ul li {
@@ -192,11 +193,12 @@ nav.my_nav ul li:last-child {
     cursor: pointer;
     background-color: slateblue;
 }
+/*111*/
 .personal_nav {
     position: fixed;
     margin-left: 85%;
     width: 10%;
-    /*height: 23%;*/
+    height: 23%;
     border-radius: 10px;
     z-index: 30;
     background-color: white;
@@ -232,4 +234,3 @@ nav.my_nav ul li:last-child {
     cursor: pointer;
     background-color: slateblue;
 }
-

@@ -18,7 +18,7 @@ public class UploadServiceImpl implements UploadService {
     public FileResult upload(InputStream inputStream, String fileName) {
         FileResult fileResult = new FileResult();
         //构造一个带指定 Region 对象的配置类
-        Configuration cfg = new Configuration(Region.region0());
+        com.qiniu.storage.Configuration cfg = new Configuration(Region.region0());
         //...其他参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
         //...生成上传凭证，然后准备上传

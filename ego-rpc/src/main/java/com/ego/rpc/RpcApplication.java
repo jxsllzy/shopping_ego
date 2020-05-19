@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.ego.rpc.mapper")
 public class RpcApplication {
     public static void main(String[] args) {
+
         SpringApplication.run(RpcApplication.class,args);
     }
 }

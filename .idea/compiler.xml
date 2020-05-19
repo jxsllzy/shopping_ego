@@ -8,18 +8,31 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ego-rpc" />
         <module name="ego-search" />
-        <module name="ego-common" />
-        <module name="ego-sso" />
         <module name="ego-generator" />
-        <module name="ego-order" />
         <module name="ego-portal" />
+        <module name="ego-sso" />
+        <module name="ego-order" />
+        <module name="ego-common" />
+        <module name="ego-manager" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="ego-common" target="1.8" />
+      <module name="ego-generator" target="1.8" />
+      <module name="ego-manager" target="1.8" />
+      <module name="ego-order" target="1.8" />
+      <module name="ego-parent" target="1.8" />
+      <module name="ego-portal" target="1.8" />
+      <module name="ego-rpc" target="1.8" />
+      <module name="ego-search" target="1.8" />
+      <module name="ego-sso" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ego-common" options="-parameters" />
       <module name="ego-generator" options="-parameters" />
+      <module name="ego-manager" options="-parameters" />
       <module name="ego-order" options="-parameters" />
       <module name="ego-portal" options="-parameters" />
       <module name="ego-rpc" options="-parameters" />

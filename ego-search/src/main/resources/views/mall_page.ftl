@@ -7,17 +7,17 @@
     <title>商城</title>
     <#include "head.ftl">
     <!-- 引入 doT.js -->
-    <script type="text/javascript" src="${ctx}/static/js/doT.min.js"></script>
-    <script src="${ctx}/static/js/layer/layer-min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/doT.min.js"></script>
+    <script src="${ctx}/js/layer/layer-min.js"></script>
 </head>
 <body>
 <header>
     <span class="short_nav"></span>
     <div class="home_icon">
-        <a href="${ctx}/static/index.html" style="text-decoration: none;color: white">C2C</a>
+        <a href="../index.html" style="text-decoration: none;color: white">C2C</a>
     </div>
     <input type="text" placeholder="Search" name="search" class="nav_search_input">
-    <span class="search_icon"></span>
+    <span class="search_icon" onclick="search()"></span>
     <span class="user_icon"></span>
     <span class="login_or_register_string">
         <a href="login_page.html">登陆</a> ， <a href="login_page.html">注册</a>
@@ -26,7 +26,7 @@
 </header>
 <div class="short_nav_show">
     <ul>
-        <li><a href="${ctx}">首页</a></li>
+        <li><a href="../index.html">首页</a></li>
         <li><a href="javascript:void(0)">商城</a></li>
         <li><a href="publish_product.html">发布商品</a></li>
         <li><a href="require_product.html">求购商品</a></li>
@@ -37,7 +37,7 @@
 </div>
 <nav class="my_nav">
     <ul>
-        <li><a href="${ctx}">首页</a></li>
+        <li><a href="../index.html">首页</a></li>
         <li><a href="javascript:void(0)">商城</a></li>
         <li><a href="publish_product.html">发布商品</a></li>
         <li><a href="require_product.html">求购商品</a></li>
@@ -178,8 +178,7 @@
     });
 
     $('.search_icon').click(function () {
-        var name = $('.nav_search_input').val();
-        window.location.href = '${ctx}/findShopByName?name=' + name;
+        alert();
     });
 
 

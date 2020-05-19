@@ -5,41 +5,65 @@
 <head>
     <meta charset="UTF-8">
     <title>发布商品</title>
-    <link href="${ctx}/static/css/home_page/header_and_nav.css" rel="stylesheet">
-    <link rel="icon" href="${ctx}/static/img/page_icon.png">
-    <link href="${ctx}/static/css/product/publish_product.css" rel="stylesheet">
-    <script src="${ctx}/static/js/jquery-3.4.1.js"></script>
-    <script src="${ctx}/static/js/home/header_model_js.js"></script>
-    <!-- 引入 doT.js -->
-    <script type="text/javascript" src="${ctx}/static/js/doT.min.js"></script>
-    <script src="${ctx}/static/js/layer/layer-min.js"></script>
-    <link href="${ctx}/static/layui/css/layui.css" rel="stylesheet" type="text/css"/>
-    <script src="${ctx}/static/layui/layui.js" type="text/javascript"></script>
+    <link href="${ctx}/css/home_page/header_and_nav.css" rel="stylesheet">
+    <link rel="icon" href="${ctx}/img/page_icon.png">
+    <link href="${ctx}/css/product/publish_product.css" rel="stylesheet">
+    <script src="${ctx}/js/jquery-3.4.1.js"></script>
+    <script src="${ctx}/js/home/header_model_js.js"></script>
+    <link rel="stylesheet" href="${ctx}/css/fileinput.min.css"/>
+    <script type="text/javascript" src="${ctx}/js/fileinput.js"></script>
+    <!-- 对中文的支持 -->
+    <script type="text/javascript" src="${ctx}/js/fileinput_locale_zh.js"></script>
+    <script src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
+    <link href="${ctx}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<#include "head.ftl">
+<header>
+    <span class="short_nav"></span>
+    <div class="home_icon">
+        <a href="../index.html" style="text-decoration: none;color: white">C2C</a>
+    </div>
+    <input type="text" placeholder="Search" name="search" class="nav_search_input">
+    <span class="search_icon"></span>
+    <span class="user_icon"></span>
+    <!--修改为用户名-->
+    <span class="login_or_register_string">
+        <a href="login_page.html">登陆</a> ， <a href="login_page.html">注册</a>
+        <!--<a href="page/personal/personal_info.html" class="user_name_a">这是一个用户名这是一个用户名这是一个用户名</a>-->
+    </span>
+</header>
+<div class="short_nav_show">
+    <ul>
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="mall_page.html">商城</a></li>
+        <li><a href="javascript:void(0)">发布商品</a></li>
+        <li><a href="require_product.html">求购商品</a></li>
+        <li><a href="shopping_cart.html">我的购物车</a></li>
+        <li><a href="javascript:void(0)">反馈与意见</a></li>
+        <li><a href="javascript:void(0)">联系我们</a></li>
+    </ul>
+</div>
+<nav class="my_nav">
+    <ul>
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="mall_page.html">商城</a></li>
+        <li><a href="javascript:void(0)">发布商品</a></li>
+        <li><a href="require_product.html">求购商品</a></li>
+        <li><a href="shopping_cart.html">我的购物车</a></li>
+        <li><a href="javascript:void(0)">反馈与意见</a></li>
+        <li><a href="javascript:void(0)">联系我们</a></li>
+    </ul>
+</nav>
 <div class="top_content">
     <div class="publish_product_div">
         <!--表单 --->
         <form id="category_form" method="post">
-            <#--储存当前商品得id-->
-            <#if Aid??>
-                <input id="Aid" type="hidden" value="${Aid}">
-                <#else >
-                <input type="hidden" id="Aid">
-            </#if>
-
             <div class="publish_one_par">
                 <div class="publish_title">
                     <h3>商品名</h3>
                 </div>
                 <div class="publish_content">
-                    <#if (shops.name)??>
-                        <input type="text" class="title_input" id="name" name="name" required value="${shops.name}">
-                        <#else>
-                        <input type="text" class="title_input" id="name" name="name" required>
-                    </#if>
-
+                    <input type="text" class="title_input" name="name" required>
                 </div>
             </div>
             <div class="publish_one_par">
@@ -48,91 +72,14 @@
                 </div>
                 <div class="publish_content">
                     <select class="choose_chengse" name="level">
-                        <#if (shops.level)??>
-                            <#if shops.level==1>
-                                <option value="3" selected >三成</option>
-                                <option value="4">四成</option>
-                                <option value="5">五成</option>
-                                <option value="6">六成</option>
-                                <option value="7" >七成</option>
-                                <option value="8">八成</option>
-                                <option value="9">九成</option>
-                                <option value="10">全新</option>
-                                <#elseif shops.level==4>
-                                    <option value="3">三成</option>
-                                    <option value="4"selected>四成</option>
-                                    <option value="5">五成</option>
-                                    <option value="6">六成</option>
-                                    <option value="7" >七成</option>
-                                    <option value="8">八成</option>
-                                    <option value="9">九成</option>
-                                    <option value="10">全新</option>
-                                <#elseif shops.level==5>
-                                <option value="3">三成</option>
-                                <option value="4">四成</option>
-                                <option value="5"selected>五成</option>
-                                <option value="6">六成</option>
-                                <option value="7" >七成</option>
-                                <option value="8">八成</option>
-                                <option value="9">九成</option>
-                                <option value="10">全新</option>
-                                <#elseif shops.level==6>
-                                <option value="3">三成</option>
-                                <option value="4">四成</option>
-                                <option value="5">五成</option>
-                                <option value="6" selected>六成</option>
-                                <option value="7" >七成</option>
-                                <option value="8">八成</option>
-                                <option value="9">九成</option>
-                                <option value="10">全新</option>
-                                <#elseif shops.level==7>
-                                <option value="3">三成</option>
-                                <option value="4">四成</option>
-                                <option value="5">五成</option>
-                                <option value="6" >六成</option>
-                                <option value="7" selected>七成</option>
-                                <option value="8">八成</option>
-                                <option value="9">九成</option>
-                                <option value="10">全新</option>
-                            <#elseif shops.level==8>
-                                <option value="3">三成</option>
-                                <option value="4">四成</option>
-                                <option value="5">五成</option>
-                                <option value="6" >六成</option>
-                                <option value="7" >七成</option>
-                                <option value="8" selected>八成</option>
-                                <option value="9">九成</option>
-                                <option value="10">全新</option>
-                            <#elseif shops.level==9>
-                                <option value="3">三成</option>
-                                <option value="4">四成</option>
-                                <option value="5">五成</option>
-                                <option value="6" >六成</option>
-                                <option value="7" >七成</option>
-                                <option value="8" >八成</option>
-                                <option value="9" selected>九成</option>
-                                <option value="10">全新</option>
-                            <#elseif shops.level==10>
-                                <option value="3">三成</option>
-                                <option value="4">四成</option>
-                                <option value="5">五成</option>
-                                <option value="6" >六成</option>
-                                <option value="7" >七成</option>
-                                <option value="8" >八成</option>
-                                <option value="9" >九成</option>
-                                <option value="10" selected>全新</option>
-                            </#if>
-
-                        <#else>
-                            <option value="3">三成</option>
-                            <option value="4">四成</option>
-                            <option value="5">五成</option>
-                            <option value="6">六成</option>
-                            <option value="7" selected >七成</option>
-                            <option value="8">八成</option>
-                            <option value="9">九成</option>
-                            <option value="10">全新</option>
-                        </#if>
+                        <option value="3">三成</option>
+                        <option value="4">四成</option>
+                        <option value="5">五成</option>
+                        <option value="6">六成</option>
+                        <option value="7" selected >七成</option>
+                        <option value="8">八成</option>
+                        <option value="9">九成</option>
+                        <option value="10">全新</option>
                     </select>
                 </div>
             </div>
@@ -141,12 +88,7 @@
                     <h3>单价</h3>
                 </div>
                 <div class="publish_content cost_content">
-                    <#if (shops.price)??>
-                        <input type="text" class="cost_input" id="price" name="price" value="${shops.price}" required><span>  RMB(.00)</span>
-                        <#else >
-                        <input type="text" class="cost_input" id="price"  name="price" required><span>  RMB(.00)</span>
-                    </#if>
-
+                    <input type="text" class="cost_input" name="price" required><span>  RMB(.00)</span>
                 </div>
             </div>
             <div class="publish_one_par">
@@ -154,12 +96,7 @@
                     <h3>数量</h3>
                 </div>
                 <div class="publish_content">
-                    <#if (shops.quantity)??>
-                        <input type="text" id="quantity" class="count_input" name="quantity" value="${shops.quantity}" required>
-                        <#else >
-                            <input type="text" id="quantity" class="count_input" name="quantity" required>
-                    </#if>
-
+                    <input type="text" class="count_input" name="quantity" required>
                 </div>
             </div>
             <div class="publish_one_par">
@@ -167,14 +104,8 @@
                     <h3>详情</h3>
                 </div>
                 <div class="publish_content">
-                    <#if (shops.remark)??>
-                        <textarea class="detail_textarea" maxlength="122"
-                                   name="remark" required>${shops.remark}</textarea>
-                        <#else >
-                        <textarea class="detail_textarea" maxlength="122"
-                                  placeholder="留下联系方式,方便买家联系" name="remark" required></textarea>
-                    </#if>
-
+                    <textarea class="detail_textarea" maxlength="122"
+                              placeholder="留下联系方式,方便买家联系" name="remark" required></textarea>
                 </div>
             </div>
             <div class="publish_one_par">
@@ -200,22 +131,16 @@
                     </select>
                 </div>
             </div>
-            <div class="publish_one_par">
+            <div class="form-group">
                 <div class="publish_title">
                     <h3>图片</h3>
                 </div>
-                <div class="layui-input-block">
-                    <!-- 隐藏的input,一个隐藏的input（用于保存文件url） -->
-                    <input type="hidden" name="image" id="img_url"/>
-                    　　　　<!-- 上传按钮 -->
-                    　　　　<button type="button" class="layui-btn" id="uploadPic"><i class="layui-icon">&#xe67c;</i>选择图片</button>
-                    　　　　<button type="button" class="layui-btn layui-btn-warm" id="uploadPicBtn">开始上传</button>
-                    　　　　<!-- 预览区域 -->
-                    　　　　<div class="layui-upload-list">
-                        　　　　　　<img class="layui-upload-img" width="100px" height="80px" id="preShow"/>
-                        　　　　　　<p id="demoText"></p>
-                        　　　　</div>
-                    　　</div>
+                <input type="text" id="image" name="image"/>
+                <form enctype="multipart/form-data">
+                    <input id="file-goods-category" class="file" name="file"
+                           type="file"
+                           data-min-file-count="1">
+                </form>
             </div>
             <div class="submit_content_div">
                 <input type="button" onclick="ajaxSubmit();" value="保存" class="submit_input">
@@ -238,41 +163,9 @@
      * hiddenId:隐藏域id
      */
     function ajaxSubmit() {
-        //前台验证
-        var name=$("#name").val();
-        if(name =="" && name.length<1){
-            layer.alert("请填写用户名");
-            return;
-        }
-
-        var imgUrl=$("#img_url").val();
-        if(imgUrl =="" && imgUrl.length<1){
-            layer.alert("请上传图片");
-            return;
-        }
-        var quantity=$("#quantity").val();
-        if(quantity =="" && quantity.length<1){
-            layer.alert("请填写数量");
-            return;
-        }
-        var price=$("#price").val();
-        if(price =="" && price.length<1){
-            layer.alert("前填写价格");
-            return;
-        }
-
-
-
-        var Aid=$("#Aid").val();
-        var url=null;
-        if(Aid!=null&&Aid.trim()!=''){
-            url="${ctx}/release/save?AId="+Aid;
-        }else{
-            url="${ctx}/release/save"
-        }
         $.ajax({
             type: "POST",
-            url:url,
+            url: "${ctx}/release/save",
             data: $("#category_form").serialize(),// 你的formid
             dataType: "JSON",
             error: function (request) {
@@ -281,17 +174,9 @@
             success: function (result) {
                 console.log(result)
                 if (200 == result.code) {
-                    layer.alert("保存成功");
-                    //清空表单信息
-                    $("#category_form")[0].reset();
-                    //重定向到发布商品页面
-                    window.location.href="${ctx}/issue/index";
-
-                }else if(result){
-
+                    alert("保存成功");
                 } else {
-
-                    layer.alert("保存失败");
+                    alert("保存失败");
                 }
             }
         });
@@ -386,39 +271,56 @@
     }
 
     //#####################商品图片上传begin########################
-    layui.use('upload', function(){
-        var upload = layui.upload , $ = layui.jquery;
-        //上传图片
-        var uploadInst = upload.render({
-            elem: '#uploadPic' //绑定元素
-            , url: '${ctx}/ar/uploadFile' //上传接口 [[@{/upload/img}]]
-            , auto: false
-            , bindAction: '#uploadPicBtn'
-            , before: function (obj) {
-                //预读本地文件示例，不支持ie8
-                obj.preview(function (index, file, result) {
-                    $('#preShow').attr('src', result); //图片链接（base64）
-                });
-            }
-            , done: function (res) {
-                //如果上传失败
-                if (res.code > 0) {
-                    alert("上传失败" + res.data.src);
-                    return layer.msg('上传失败');
-                }
-                //上传成功
-                console.log("上传成功" + res.data.src);
-                document.getElementById("img_url").value = res.data.src;
-                return layer.msg('上传成功');
-            }
-            , error: function () {
-                var demoText = $('#demoText');
-                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function () {
-                    uploadInst.upload();
-                });
-            }
-        })
+    /**
+     * 初始设置
+     * language指定语言
+     * uploadUrl指定文件上传的后台地址
+     * allowedPreviewTypes允许上传文件的类型
+     */
+    $('#file-goods-category').fileinput({
+        language: 'zh',
+        uploadUrl: '${ctx}/fileUpload/upload',
+        allowedPreviewTypes: ['image', 'html', 'text', 'video', 'audio',
+            'flash']
+    });
+    /**
+     * 上传文件失败后 调用方法（回调函数）
+     */
+    $('#file-goods-category').on('fileuploaderror', function (event,
+                                                              data, previewId, index) {
+        var form = data.form,
+            files = data.files, e
+        xtra = data.extra,
+            response = data.response,
+            reader = data.reader;
+        console.log(data);
+        console.log('File upload error');
+    });
+    /**
+     * 文件错误 比如文件类型错误 调用方法（回调函数）
+     */
+    $('#file-goods-category').on('fileerror', function (event, data) {
+        console.log(data.id);
+        console.log(data.index);
+        console.log(data.file);
+        console.log(data.reader);
+        console.log(data.files);
+    });
+    /**
+     * 文件上传成功后 调用方法（回调函数）
+     */
+    $('#file-goods-category').on('fileuploaded', function (event, data,
+                                                           previewId, index) {
+        var form = data.form,
+            files = data.files,
+            extra = data.extra,
+            response = data.response,
+            reader = data.reader;
+        // 服务器文件地址
+        // alert(data.response.fileUrl);
+        // 将服务器文件地址设置至隐藏域
+        $("#image").val(data.response.fileUrl);
+        console.log('File uploaded triggered');
     });
     //#####################商品图片上传end########################
 </script>

@@ -12,9 +12,6 @@ $(function () {
                     $(this).hide(0);
                 });
             }
-            if ($('.personal_nav').is(":visible")) {
-                $(this).animate({height: '0%'}, 300).hide(0);
-            }
         }
     });
     $(window).scroll(function () {
@@ -55,6 +52,28 @@ $(function () {
             $(this).animate({width: "5em", marginLeft: "25%"}, 800);
     });
 
+    $('.search_icon').click(function () {
+        $.ajax({
+            url: "${ctx}/search/searchGoods",
+            type: "POST",
+            data: $("#s_search_form").serialize(),
+            dataType: "JSON",
+            success: function (result) {
+                // console.log(result);
+                // 调用模板
+                var templ = doT.template($("#goodsTemplate").text());
+                // 填充内容
+                $("#s_search_content").html(templ(result.result));
+                // 调用模板
+                var page = doT.template($("#pageTemplate").text());
+                // 填充内容
+                $("#s_search_page").html(page(result));
+            },
+            error: function (result) {
+                alert("系统正在升级中，请稍后再试！");
+            }
+        });
+    });
     $('.short_nav').click(function () {
         if ($('.short_nav').css('opacity')>0.5) {
             if ($('.short_nav_show').is(":visible")) {
@@ -72,22 +91,14 @@ $(function () {
             }
         }
     });
-    $('.user_name_a').mouseenter(function () {
-        if (!$('.personal_nav').is(":visible")) {
-            $('.personal_nav').show(0).css({opacity: 0, height: 0}).animate({
-                opacity: 1,
-                height: "43%"
-            },500).show(0);
-        }
-    });
-    $('.personal_nav').mouseleave(function () {
-        if ($('.personal_nav').is(":visible")){
-            $('.personal_nav').animate({
-                opacity: 0,
-                height: 0
-            }, 500,function () {
-                $(this).hide(0);
-            });
-        }
-    });
+        $('.user_name_a').mouseenter(function () {
+            if (!$('.personal_nav').is(":visible")) {
+                $('.personal_nav').show(0).animate({height: '23%'},500);
+            }
+        });
+        $('.personal_nav').mouseleave(function () {
+            if ($('.personal_nav').is(":visible")){
+                $(this).animate({height: '0%'},300).hide(0);
+            }
+        });
 });

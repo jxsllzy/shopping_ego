@@ -55,7 +55,7 @@
     top: 5px;
     width: 34px;
     height: 80px;
-    background-image: url("../../images/img/arrows.png");
+    background-image: url("../../img/home/arrows.png");
     background-repeat: no-repeat;
     cursor: pointer;
 }
@@ -74,7 +74,7 @@
     top: 5px;
     width: 34px;
     height: 80px;
-    background-image: url("../../images/img/arrows.png");
+    background-image: url("../../img/home/arrows.png");
     background-repeat: no-repeat;
     background-position: -34px 0;
     cursor: pointer;

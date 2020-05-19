@@ -26,8 +26,8 @@ public class AllKindsServiceImpl implements AllKindsService {
     @Override
     public List<AllKinds> selectTopList() {
         AllKindsExample allKindsExample = new AllKindsExample();
-
         return allKindsMapper.selectByExample(allKindsExample);
+
     }
 
     /**

@@ -218,26 +218,6 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <!--首页-轮播图的商品展示-根据商品数量升序前5条数据-->
-  <select id="select" resultType="com.ego.portal.pojo.ShopInformation">
-    select <include refid="Base_Column_List"/> from shopinformation
-    order by sales desc
-    limit 0,5;
-  </select>
-  <!--首页-精品的商品展示-根据商品数量升序第5到10条数据-->
-  <select id="selectbySales" resultType="com.ego.portal.pojo.ShopInformation">
-    select <include refid="Base_Column_List"/> from shopinformation
-    order by sales desc
-    limit 5,5;
-  </select>
-  <!-- 根据商品分类id查询分类信息-->
-  <select id="selectbySort" resultType="com.ego.portal.vo.ProductName" parameterType="int">
-    select a.name Aname,c.name Cname,k.name Kname from shopinformation s
-    join specifickinds k on s.sort=k.id
-    join classification c on c.id=k.cid
-    join allkinds a on a.id=c.aid
-    where  s.sort=#{sort} and s.id=#{id};
-  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update shopinformation
     <set>
@@ -370,4 +350,5 @@
       thumbnails = #{thumbnails,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

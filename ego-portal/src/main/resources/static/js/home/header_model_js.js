@@ -12,9 +12,6 @@ $(function () {
                     $(this).hide(0);
                 });
             }
-            if ($('.personal_nav').is(":visible")) {
-                $(this).animate({height: '0%'}, 300).hide(0);
-            }
         }
     });
     $(window).scroll(function () {
@@ -31,7 +28,6 @@ $(function () {
                 $('.my_nav').css({opacity: (opacity_o - 0.2)});
                 $('.short_nav').css({opacity: (1 - opacity_o)});
             }
-
         } else if (scroll_length < 5) {
             $('.my_nav').css({opacity: 1});
             $('.short_nav').css({opacity: (0)});
@@ -55,6 +51,9 @@ $(function () {
             $(this).animate({width: "5em", marginLeft: "25%"}, 800);
     });
 
+    $('.search_icon').click(function () {
+
+    });
     $('.short_nav').click(function () {
         if ($('.short_nav').css('opacity')>0.5) {
             if ($('.short_nav_show').is(":visible")) {
@@ -67,27 +66,19 @@ $(function () {
             } else {
                 $('.short_nav_show').show(0).css({opacity: 0, height: 0}).animate({
                     opacity: 1,
-                    height: "30%"
+                    height: "43%"
                 }, 500).show(0);
             }
         }
     });
-    $('.user_name_a').mouseenter(function () {
-        if (!$('.personal_nav').is(":visible")) {
-            $('.personal_nav').show(0).css({opacity: 0, height: 0}).animate({
-                opacity: 1,
-                height: "43%"
-            },500).show(0);
-        }
-    });
-    $('.personal_nav').mouseleave(function () {
-        if ($('.personal_nav').is(":visible")){
-            $('.personal_nav').animate({
-                opacity: 0,
-                height: 0
-            }, 500,function () {
-                $(this).hide(0);
-            });
-        }
-    });
+        $('.user_name_a').mouseenter(function () {
+            if (!$('.personal_nav').is(":visible")) {
+                $('.personal_nav').show(0).animate({height: '23%'},500);
+            }
+        });
+        $('.personal_nav').mouseleave(function () {
+            if ($('.personal_nav').is(":visible")){
+                $(this).animate({height: '0%'},300).hide(0);
+            }
+        });
 });
